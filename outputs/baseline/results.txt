@@ -1,0 +1,4 @@
+naive_logloss=1.0961
+length_only_logloss=1.0747
+tfidf_logreg_val_logloss=1.0803
+tfidf_logreg_val_acc=0.3867

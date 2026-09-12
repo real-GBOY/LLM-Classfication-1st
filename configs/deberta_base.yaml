@@ -1,0 +1,23 @@
+# Reference config for the first DeBERTa-v3-extra-small fine-tuning run.
+# Mirrored as the CONFIG dict at the top of notebooks/03_deberta_train.py
+# (that script is self-contained for portability into a Kaggle notebook,
+# so this file documents the chosen values rather than being loaded at
+# runtime -- keep the two in sync manually when you change a value).
+
+preset: deberta_v3_extra_small_en
+max_words: 340          # word-count budget BEFORE tokenization (see src/preprocessing.py)
+sequence_length: 512    # hard token cap -- VERIFY against the loaded preset's config on first run
+prompt_frac: 0.2
+response_frac: 0.4
+
+seed: 42
+val_fraction: 0.1       # grouped by prompt, see src/data.py group_split
+
+batch_size: 16
+epochs: 2
+learning_rate: 2.0e-5
+weight_decay: 0.01
+warmup_ratio: 0.1
+label_smoothing: 0.0
+
+mixed_precision: true
