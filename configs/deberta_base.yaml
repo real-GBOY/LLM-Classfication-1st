@@ -18,6 +18,8 @@ epochs: 2
 learning_rate: 2.0e-5
 weight_decay: 0.01
 warmup_ratio: 0.1
-label_smoothing: 0.0
+# label smoothing not used: SparseCategoricalCrossentropy (needed for our
+# integer class labels) has no label_smoothing kwarg -- that's
+# CategoricalCrossentropy-only, which needs one-hot labels.
 
 mixed_precision: true

@@ -46,7 +46,6 @@ CONFIG = dict(
     learning_rate=2e-5,
     weight_decay=0.01,
     warmup_ratio=0.1,
-    label_smoothing=0.0,
     mixed_precision=True,
 )
 
@@ -245,9 +244,11 @@ optimizer = keras.optimizers.AdamW(
 
 model.compile(
     optimizer=optimizer,
-    loss=keras.losses.SparseCategoricalCrossentropy(
-        from_logits=True, label_smoothing=CONFIG["label_smoothing"]
-    ),
+    # SparseCategoricalCrossentropy has no label_smoothing kwarg (that's
+    # CategoricalCrossentropy-only, which needs one-hot labels) -- our
+    # labels are integer class ids, so label smoothing isn't available
+    # without a separate one-hot-encoding step. Not needed for a first run.
+    loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
     metrics=["sparse_categorical_accuracy"],
 )
 
